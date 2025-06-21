@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:notes_app/widgets/note_item.dart';
+import 'package:notes_app/core/resources/app_colors.dart';
+import 'package:notes_app/widgets/addnote_bottom_sheet.dart';
+import 'package:notes_app/widgets/custom_appbar.dart';
 import 'package:notes_app/widgets/notes_listview.dart';
 
 class NotesView extends StatelessWidget {
@@ -10,26 +12,21 @@ class NotesView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "Notes",
-          style: GoogleFonts.inter(
-            fontSize: 28,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
-        ),
-        scrolledUnderElevation: 0,
-        actions: [
-          Container(
-            padding: EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(16),
-              color: Colors.white.withOpacity(0.08),
+      appBar: CustomAppBar(title: "Notes", icon: Icons.search),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          showModalBottomSheet(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadiusGeometry.circular(16),
             ),
-            child: Icon(Icons.search, color: Colors.white, size: 30),
-          ),
-        ],
+            context: context,
+            builder: (context) {
+              return AddNoteBottomSheet();
+            },
+          );
+        },
+        backgroundColor: Colors.blue,
+        child: Icon(Icons.add, color: AppColors.whiteColor),
       ),
       body: Padding(padding: const EdgeInsets.all(8.0), child: NotesListView()),
     );
