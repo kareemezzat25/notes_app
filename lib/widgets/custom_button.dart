@@ -3,12 +3,13 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:notes_app/core/resources/app_colors.dart';
 
 class CustomButton extends StatelessWidget {
-  const CustomButton({super.key});
+  CustomButton({super.key, this.onTap});
+  Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () {},
+      onPressed: onTap,
       style: ElevatedButton.styleFrom(
         backgroundColor: AppColors.textFieldColor,
         shape: RoundedRectangleBorder(
