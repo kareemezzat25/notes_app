@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:notes_app/core/resources/app_colors.dart';
 import 'package:notes_app/cubits/create_note/create_note_cubit.dart';
 import 'package:notes_app/cubits/create_note/create_notes_states.dart';
+import 'package:notes_app/cubits/read_notes/notes_cubit.dart';
 import 'package:notes_app/widgets/bottom_sheet_body.dart';
 
 class AddNoteBottomSheet extends StatelessWidget {
@@ -31,6 +32,7 @@ class AddNoteBottomSheet extends StatelessWidget {
             );
           }
           if (state is CreateNoteSuccess) {
+            BlocProvider.of<NotesCubit>(context).readNotes();
             Navigator.pop(context);
             Navigator.pop(context);
             ScaffoldMessenger.of(context).showSnackBar(

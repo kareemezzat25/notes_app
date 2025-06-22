@@ -26,48 +26,54 @@ class _BottomSheetBodyState extends State<BottomSheetBody> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      padding: EdgeInsets.only(
+        left: 16.0,
+        right: 16,
+        bottom: MediaQuery.of(context).viewInsets.bottom,
+      ),
       child: Form(
         key: formKey,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(height: 32),
-            Text(
-              "Add Note",
-              style: GoogleFonts.inter(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: AppColors.whiteColor,
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: 32),
+              Text(
+                "Add Note",
+                style: GoogleFonts.inter(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.whiteColor,
+                ),
               ),
-            ),
-            SizedBox(height: 16),
-            CustomTextFormField(
-              labelText: "Title",
-              controller: titleController,
-            ),
-            SizedBox(height: 16),
-            CustomTextFormField(
-              labelText: "Content",
-              maxLines: 5,
-              controller: contentController,
-            ),
-            SizedBox(height: 32),
-            CustomButton(
-              onTap: () {
-                if (formKey.currentState!.validate()) {
-                  BlocProvider.of<CreateNoteCubit>(context).createNote(
-                    NoteModel(
-                      titleNote: titleController.text,
-                      content: contentController.text,
-                      date: DateTime.now().toString(),
-                    ),
-                  );
-                  log("Added");
-                }
-              },
-            ),
-          ],
+              SizedBox(height: 16),
+              CustomTextFormField(
+                labelText: "Title",
+                controller: titleController,
+              ),
+              SizedBox(height: 16),
+              CustomTextFormField(
+                labelText: "Content",
+                maxLines: 5,
+                controller: contentController,
+              ),
+              SizedBox(height: 32),
+              CustomButton(
+                onTap: () {
+                  if (formKey.currentState!.validate()) {
+                    BlocProvider.of<CreateNoteCubit>(context).createNote(
+                      NoteModel(
+                        titleNote: titleController.text,
+                        content: contentController.text,
+                        date: DateTime.now().toString(),
+                      ),
+                    );
+                    log("Added");
+                  }
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
