@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:notes_app/core/resources/app_colors.dart';
 import 'package:notes_app/cubits/create_note/create_note_cubit.dart';
 import 'package:notes_app/models/note_model.dart';
@@ -65,7 +66,7 @@ class _BottomSheetBodyState extends State<BottomSheetBody> {
                       NoteModel(
                         titleNote: titleController.text,
                         content: contentController.text,
-                        date: DateTime.now().toString(),
+                        date: DateFormat("dd-MM-yyyy").format(DateTime.now()),
                       ),
                     );
                     log("Added");

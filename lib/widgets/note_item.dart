@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:notes_app/core/resources/app_colors.dart';
+import 'package:notes_app/cubits/read_notes/notes_cubit.dart';
 import 'package:notes_app/models/note_model.dart';
 import 'package:notes_app/views/editnote_view.dart';
 
@@ -41,7 +43,24 @@ class NoteItem extends StatelessWidget {
                 ),
               ),
               trailing: IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  note.delete();
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      duration: Duration(milliseconds: 500),
+                      backgroundColor: Colors.red,
+                      content: Text(
+                        "The Note deleted Successfully",
+                        style: GoogleFonts.inter(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.whiteColor,
+                        ),
+                      ),
+                    ),
+                  );
+                  BlocProvider.of<NotesCubit>(context).readNotes();
+                },
                 icon: Icon(Icons.delete, color: Colors.black, size: 35),
               ),
             ),
